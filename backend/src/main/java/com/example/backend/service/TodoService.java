@@ -1,8 +1,8 @@
 package com.example.backend.service;
 
 import com.example.backend.dto.TodosDto;
-import com.example.backend.entity.Todo;
 import com.example.backend.repository.TodoRepository;
+import com.example.backend.service.interfaces.ITodo;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class TodoService {
+public class TodoService implements ITodo {
 
     private final TodoRepository repository;
     private final ModelMapper mapper;
@@ -36,24 +36,24 @@ public class TodoService {
     @Transactional
     public TodosDto save(TodosDto todo) {
         log.debug("Todo created: " + todo);
-        Todo todoModel = mapToTodo(todo);
+        com.example.backend.entity.Todo todoModel = mapToTodo(todo);
         if (todoModel.getTodoList() == null) {
             log.error("There must be a list");
             throw new RuntimeException("There must be a list");
         }
-        Todo saveTodo = repository.save(todoModel);
+        com.example.backend.entity.Todo saveTodo = repository.save(todoModel);
         return mapper.map(saveTodo, TodosDto.class);
     }
 
     @Transactional
-    public Todo update(Long id, Todo todo) {
+    public com.example.backend.entity.Todo update(Long id, com.example.backend.entity.Todo todo) {
         log.debug("Todo updated with id: " + id);
         todo.setId(id);
         return repository.save(todo);
     }
 
     @Transactional
-    public Todo deleteById(Long id) {
+    public com.example.backend.entity.Todo deleteById(Long id) {
         var todo = repository.findById(id);
         if (todo.isPresent()) {
             log.debug("Todo deleted with id: " + id);
@@ -65,7 +65,7 @@ public class TodoService {
     }
 
     @Transactional(readOnly = true)
-    public Todo getById(Long id) {
+    public com.example.backend.entity.Todo getById(Long id) {
         var todo = repository.findById(id);
         if (todo.isPresent()) {
             log.debug("Todo : " + todo.get());
@@ -75,17 +75,17 @@ public class TodoService {
         return null;
     }
 
-    private TodosDto mapToTodoDto(Todo todo) {
+    private TodosDto mapToTodoDto(com.example.backend.entity.Todo todo) {
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         TodosDto todosDto;
         todosDto = mapper.map(todo, TodosDto.class);
         return todosDto;
     }
 
-    private Todo mapToTodo(TodosDto todo) {
+    private com.example.backend.entity.Todo mapToTodo(TodosDto todo) {
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-        Todo todoModel;
-        todoModel = mapper.map(todo, Todo.class);
+        com.example.backend.entity.Todo todoModel;
+        todoModel = mapper.map(todo, com.example.backend.entity.Todo.class);
         return todoModel;
     }
 }

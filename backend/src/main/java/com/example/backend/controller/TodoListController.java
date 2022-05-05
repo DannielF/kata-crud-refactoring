@@ -1,7 +1,7 @@
 package com.example.backend.controller;
 
-import com.example.backend.dto.TodosDto;
-import com.example.backend.service.TodoService;
+import com.example.backend.entity.TodoList;
+import com.example.backend.service.TodoListService;
 import com.example.backend.utils.GetErrorMessages;
 import com.example.backend.utils.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -21,14 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
-@RequestMapping("/todo")
-public class TodoController {
+@RequestMapping("/todo-list")
+public class TodoListController {
 
-    private final TodoService service;
+    private final TodoListService service;
     private final Response response = new Response();
     private HttpStatus httpStatus = HttpStatus.OK;
 
-    public TodoController(TodoService service) {
+    public TodoListController(TodoListService service) {
         this.service = service;
     }
 
@@ -52,10 +52,10 @@ public class TodoController {
         try {
             response.data = service.getById(id);
             if (response.data == null) {
-                response.message = "There's no such Todo";
+                response.message = "There's no such TodoList";
                 httpStatus = HttpStatus.NOT_FOUND;
             } else {
-                response.message = "Todo found";
+                response.message = "TodoList found";
                 httpStatus = HttpStatus.OK;
             }
         } catch (DataAccessException exception) {
@@ -68,11 +68,11 @@ public class TodoController {
 
     @CrossOrigin
     @PostMapping()
-    public ResponseEntity<Response> save(@RequestBody TodosDto todo) {
+    public ResponseEntity<Response> save(@RequestBody TodoList todoList) {
         response.restart();
         try {
-            log.info("Todo Created : {}", todo);
-            response.data = service.save(todo);
+            log.info("TodoList Created : {}", todoList);
+            response.data = service.save(todoList);
             httpStatus = HttpStatus.CREATED;
         } catch (DataAccessException dae) {
             GetErrorMessages.getErrorMessageForResponse(dae, response, httpStatus);
@@ -84,11 +84,11 @@ public class TodoController {
 
     @CrossOrigin
     @PutMapping("/{id}")
-    public ResponseEntity<Response> update(@PathVariable("id") Long id, @RequestBody com.example.backend.entity.Todo todo) {
+    public ResponseEntity<Response> update(@PathVariable("id") Long id, @RequestBody TodoList todoList) {
         response.restart();
         try {
-            log.info("Todo updated : {}", todo);
-            response.data = service.update(id, todo);
+            log.info("TodoList updated : {}", todoList);
+            response.data = service.update(id, todoList);
             httpStatus = HttpStatus.OK;
         } catch (DataAccessException dae) {
             GetErrorMessages.getErrorMessageForResponse(dae, response, httpStatus);
@@ -105,10 +105,10 @@ public class TodoController {
         try {
             response.data = service.deleteById(id);
             if (response.data == null) {
-                response.message = "There's no such Todo";
+                response.message = "There's no such TodoList";
                 httpStatus = HttpStatus.NOT_FOUND;
             } else {
-                response.message = "Todo deleted";
+                response.message = "TodoList deleted";
                 httpStatus = HttpStatus.OK;
             }
         } catch (DataAccessException exception) {

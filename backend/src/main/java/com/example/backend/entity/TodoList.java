@@ -41,7 +41,7 @@ public class TodoList {
     @OneToMany(mappedBy = "todoList",
             targetEntity = Todo.class,
             fetch = FetchType.EAGER,
-            cascade = CascadeType.REMOVE)
+            cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<Todo> todos;
 

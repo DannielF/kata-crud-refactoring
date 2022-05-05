@@ -2,6 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.entity.TodoList;
 import com.example.backend.repository.TodoListRepository;
+import com.example.backend.service.interfaces.ITodoList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class TodoListService {
+public class TodoListService implements ITodoList {
 
     private final TodoListRepository repository;
 
@@ -38,7 +39,7 @@ public class TodoListService {
     }
 
     @Transactional
-    public TodoList delete(Long id) {
+    public TodoList deleteById(Long id) {
         var todoList = repository.findById(id);
         if (todoList.isPresent()) {
             log.debug("TodoList deleted with id: " + id);
@@ -49,7 +50,7 @@ public class TodoListService {
     }
 
     @Transactional(readOnly = true)
-    public TodoList get(Long id) {
+    public TodoList getById(Long id) {
         var todoList = repository.findById(id);
         if(todoList.isPresent()){
             log.debug("TodoList got with id: " + id);
