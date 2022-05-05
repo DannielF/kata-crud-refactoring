@@ -1,6 +1,6 @@
 package com.example.backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,43 +8,42 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+import java.util.Set;
 
 @Builder
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@Entity
 @AllArgsConstructor
-@Table(name = "todo")
-public class Todo {
+@Entity
+@Table(name = "todolist")
+public class TodoList {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "td_id")
+    @Column(name = "tl_id")
     private Long id;
 
-    @Column(name = "td_name", nullable = false, length = 100)
+    @Column(name = "tl_name", nullable = false, length = 30)
     private String name;
 
-    @Column(name = "td_done", nullable = false)
-    private Boolean done;
+    @OneToMany(mappedBy = "todoList",
+            targetEntity = Todo.class,
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private Set<Todo> todos;
 
-    @ManyToOne(fetch = FetchType.LAZY,
-            targetEntity = TodoList.class,
-            optional = false)
-    @JoinColumn(name = "tdlist_id")
-    @JsonBackReference
-    private TodoList todoList;
+
 }

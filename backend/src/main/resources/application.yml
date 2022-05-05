@@ -1,24 +1,24 @@
 spring:
   devtools:
-    livereload:
-      enabled: true
-  h2:
-    console:
-      enabled: true
-  datasource:
-    url: jdbc:h2:mem:mydb
-    username: root
-    password: 1234567890
-    driverClassName: org.h2.Driver
+    livereload.enabled: true
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
     properties:
       hibernate:
         format_sql: true
+
+  datasource:
+    url: jdbc:mysql://localhost/kata-crud?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrival=true
+    username: root
+    password: Dgranado2
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
 logging:
   level:
-    org:
-      hibernate:
-        sql: debug
-        type.descriptor.sql.basic-binder: trace
-
+    org.hibernate:
+      sql: debug
+      type.descriptor.sql.basic-binder: trace
