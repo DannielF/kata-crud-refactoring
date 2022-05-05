@@ -1,49 +1,36 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext } from 'react';
+import useFetch from '../utils/useFetch.jsx';
 
-const initialValue = {
-  list: [],
-  item: {},
-};
-
-const TodoContext = createContext(initialValue);
+const TodoContext = createContext({});
 
 const TodoProvider = ({ children }) => {
-  const API = 'http://localhost:8080/todo';
+  const API = 'http://localhost:8080';
+  const { data, loading, error } = useFetch(`${API}/todo-list`);
+  console.log(data);
+  console.log(loading);
+  console.log(error);
 
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case 'update-item':
-        const listUpdated = state.list.map((item) => {
-          if (item.id === action.item.id) {
-            return action.item;
-          }
-          return item;
-        });
-        return { ...state, list: listUpdated, item: {} };
+  const addTodoList = async (data) => {
+    let optionsFetch = {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: data,
+      }),
+    };
 
-      case 'delete-item':
-        const listFiltered = state.list.filter((item) => item.id !== action.id);
-        return { ...state, list: listFiltered };
-
-      case 'update-list':
-        return { ...state, list: action.list };
-      case 'edit-item':
-        return { ...state, item: action.item };
-
-      case 'add-item':
-        const newList = state.list;
-        newList.push(action.item);
-        return { ...state, list: newList };
-
-      default:
-        return state;
+    try {
+      await fetch(`${API}/todo-list`, options);
+    } catch (error) {
+      console.error('Fetch -POST- error', error);
     }
   };
 
-  const [state, dispatch] = useReducer(reducer, initialValue);
-
   return (
-    <TodoContext.Provider value={{ state, dispatch, API }}>
+    <TodoContext.Provider value={{ addTodoList, API }}>
       {children}
     </TodoContext.Provider>
   );
