@@ -19,13 +19,15 @@ const Todo = (todo) => {
 
   return (
     <>
-      <tr key={todo.id}>
-        <td>{todo.id}</td>
-        <td>
-          {todo.name}
+      <tr key={todo.id} className="border-b">
+        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
           {done && <FcApproval />}
+          {todo.id}
         </td>
-        <td>
+        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+          {todo.name}
+        </td>
+        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
           <input
             type="checkbox"
             defaultChecked={todo.done}
@@ -34,8 +36,9 @@ const Todo = (todo) => {
             }}
           ></input>
         </td>
-        <td>
+        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
           <button
+            className="px-1 py-1 bg-red-700 rounded text-stone-100"
             onClick={() => {
               toDelete(todo.id);
             }}
@@ -43,14 +46,17 @@ const Todo = (todo) => {
             Delete
           </button>
         </td>
-        <td>
+        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
           <button
+            className="px-2 py-1 bg-lime-600 rounded"
             onClick={() => {
               setEditing(true);
             }}
           >
             Edit
           </button>
+        </td>
+        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
           {editing && <EditTodo setEdit={setEditing} todo={todo} />}
         </td>
       </tr>

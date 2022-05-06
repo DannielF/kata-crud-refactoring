@@ -27,8 +27,12 @@ const EditTodo = ({ setEdit, todo }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col items-center"
+    >
       <input
+        className="border-2 border-gray-600 rounded"
         type="text"
         placeholder="New todo name"
         name="name"
@@ -37,14 +41,19 @@ const EditTodo = ({ setEdit, todo }) => {
         })}
       />
       <span>{errors?.name?.message}</span>
-      <button type="submit">Edit</button>
-      <button
-        onClick={() => {
-          setEdit(false);
-        }}
-      >
-        Cancel
-      </button>
+      <div className="mt-2">
+        <button type="submit" className="py-0.5 px-1.5 bg-lime-600 rounded">
+          Edit
+        </button>{' '}
+        <button
+          className="py-0.5 px-1.5 bg-red-700 rounded"
+          onClick={() => {
+            setEdit(false);
+          }}
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   );
 };

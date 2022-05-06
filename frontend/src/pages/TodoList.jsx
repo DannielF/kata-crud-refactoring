@@ -22,13 +22,17 @@ const TodoList = () => {
   });
 
   return (
-    <>
-      {todoList.data.length == 0 && <p>Nothing... Go add one</p>}
-      <h1>Todo list</h1>
+    <div className="flex flex-col mt-5 items-center w-1/2">
+      {todoList.data.length == 0 && (
+        <p className="text-lg">Nothing... Go add one</p>
+      )}
+      {todoList.data.length > 0 && (
+        <h1 className="text-2xl font-semibold mt-5">Todo list</h1>
+      )}
       {todoListItems.map((todoList, index) => (
         <ListTodo key={index} list={todoList} todos={todoList.list} />
       ))}
-    </>
+    </div>
   );
 };
 
