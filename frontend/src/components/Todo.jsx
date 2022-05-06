@@ -18,7 +18,7 @@ const Todo = (todo) => {
         <td>{todo.id}</td>
         <td>
           {todo.name}
-          {done == true && <FcApproval />}
+          {done && <FcApproval />}
         </td>
         <td>
           <input

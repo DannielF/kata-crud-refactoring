@@ -12,7 +12,7 @@ const EditTodo = ({ setEdit, id }) => {
   } = useForm();
 
   const onSubmit = (data, event) => {
-    editTodo(data.name, id);
+    editTodo(data, id);
     event.target.reset();
   };
 
@@ -28,7 +28,13 @@ const EditTodo = ({ setEdit, id }) => {
       />
       <span>{errors?.name?.message}</span>
       <button type="submit">Edit</button>
-      <button onClick={setEdit(false)}>Cancel</button>
+      <button
+        onClick={() => {
+          setEdit(false);
+        }}
+      >
+        Cancel
+      </button>
     </form>
   );
 };

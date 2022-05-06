@@ -65,7 +65,7 @@ const TodoProvider = ({ children }) => {
 
   const editTodo = async (data, id) => {
     const bodyParsed = {
-      name: data,
+      name: data.name,
     };
 
     let optionsFetch = {
@@ -78,7 +78,7 @@ const TodoProvider = ({ children }) => {
     };
 
     try {
-      await fetch(`${API}/todo/${id}`, options);
+      await fetch(`${API}/todo/${id}`, optionsFetch);
     } catch (error) {
       console.error('Fetch -PUT- error', error);
     }

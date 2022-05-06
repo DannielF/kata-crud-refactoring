@@ -19,7 +19,7 @@ const ListTodo = ({ list, todos }) => {
             toDelete(list.id);
           }}
         >
-          Delete list
+          Delete
         </button>
         <CreateTodo {...list} />
       </div>
@@ -32,7 +32,6 @@ const ListTodo = ({ list, todos }) => {
           </tr>
         </thead>
         <tbody>
-          {console.log(todos)}
           {todos.map((todo, index) => (
             <Todo key={index} {...todo} />
           ))}
