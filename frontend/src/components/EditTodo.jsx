@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { TodoContext } from '../context/index';
 
-const EditTodo = ({ setEdit, id }) => {
+const EditTodo = ({ setEdit, todo }) => {
   const { editTodo } = React.useContext(TodoContext);
 
   const {
@@ -12,7 +12,7 @@ const EditTodo = ({ setEdit, id }) => {
   } = useForm();
 
   const onSubmit = (data, event) => {
-    editTodo(data, id);
+    editTodo(data, todo);
     event.target.reset();
   };
 

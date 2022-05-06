@@ -46,7 +46,7 @@ const Todo = (todo) => {
           >
             Edit
           </button>
-          {editing && <EditTodo setEdit={setEditing} id={todo.id} />}
+          {editing && <EditTodo setEdit={setEditing} todo={todo} />}
         </td>
       </tr>
     </>

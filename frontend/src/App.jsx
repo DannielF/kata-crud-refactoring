@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <TodoListForm addTodoList={addTodoList} />
-      <TodoList API={API} />
+      <TodoList />
     </>
   );
 }
