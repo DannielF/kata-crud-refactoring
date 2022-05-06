@@ -1,7 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { TodoContext } from '../context/index';
 
-const TodoListForm = ({ add }) => {
+const CreateTodo = (list) => {
+  const { addTodo } = React.useContext(TodoContext);
   const {
     register,
     handleSubmit,
@@ -9,28 +11,27 @@ const TodoListForm = ({ add }) => {
   } = useForm();
 
   const onSubmit = (data, event) => {
-    add(data.name, event);
+    console.log(data);
+    console.log(list);
+    addTodo(data, list);
     event.target.reset();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="form-todo">
-      <h3>Create a new list of todo</h3>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <h3>Create a new todo</h3>
       <input
-        className="form-todo__input"
         type="text"
-        placeholder="TodoList name"
+        placeholder="What needs to be done?"
         name="name"
         {...register('name', {
           required: 'Required',
         })}
       />
       <span>{errors?.name?.message}</span>
-      <button type="submit" className="form-todo__button">
-        Save
-      </button>
+      <button type="submit">Save</button>
     </form>
   );
 };
 
-export { TodoListForm };
+export { CreateTodo };

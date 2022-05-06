@@ -3,8 +3,8 @@ import { ListTodo } from '../components/ListTodo.jsx';
 import useFetch from '../utils/useFetch.jsx';
 
 const TodoList = ({ API }) => {
-  const { data: todoList, loading, error } = useFetch(`${API}/todo-list`);
-  const { data: todo } = useFetch(`${API}/todo`);
+  const todoList = useFetch(`/todo-list`);
+  const todo = useFetch(`/todo`);
 
   if (!todoList)
     return (
@@ -12,8 +12,6 @@ const TodoList = ({ API }) => {
         <p>Nothing... Go add one</p>
       </>
     );
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
 
   const todoListItems = todoList.data.map((todoListItem) => {
     const list = todo.data.filter(
@@ -25,9 +23,8 @@ const TodoList = ({ API }) => {
   return (
     <>
       <h1>Todo list</h1>
-      {console.log(todoListItems)}
-      {todoListItems.map((todoList) => (
-        <ListTodo list={todoList.list} todos={todoList.todos} />
+      {todoListItems.map((todoList, index) => (
+        <ListTodo key={index} list={todoList} todos={todoList.list} />
       ))}
     </>
   );

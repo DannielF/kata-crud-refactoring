@@ -1,12 +1,14 @@
 import React from 'react';
 import { TodoContext } from './context/index';
-import { TodoListForm } from './layouts/TodoListForm';
+import { TodoList } from './pages/TodoList';
+import { TodoListForm } from './pages/TodoListForm';
 
 function App() {
   const { addTodoList, API } = React.useContext(TodoContext);
   return (
     <>
-      <TodoListForm add={addTodoList} />
+      <TodoListForm addTodoList={addTodoList} />
+      <TodoList API={API} />
     </>
   );
 }
