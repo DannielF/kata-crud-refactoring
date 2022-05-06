@@ -6,6 +6,7 @@
 	- useFetch
 	- useEffect
 	- React hook form
+	- Tailwind CSS
 	- Vite
 
 ## Back-end
