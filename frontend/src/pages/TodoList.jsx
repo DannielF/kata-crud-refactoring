@@ -1,14 +1,12 @@
 import React from 'react';
 import { ListTodo } from '../components/ListTodo.jsx';
-import useFetch from '../utils/useFetch.jsx';
+import { TodoContext } from '../context/index';
 
-const TodoList = ({ API }) => {
-  const todoList = useFetch(`/todo-list`);
-  const todo = useFetch(`/todo`);
+const TodoList = () => {
+  const { todoList, todo, error } = React.useContext(TodoContext);
 
-  if (!todoList) {
-    return <></>;
-  }
+  if (!todoList) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   const todoListItems = todoList.data.map((todoListItem) => {
     const list = todo.data.filter(

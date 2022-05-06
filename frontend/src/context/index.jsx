@@ -1,9 +1,13 @@
 import React, { createContext } from 'react';
+import useFetch from '../utils/useFetch.jsx';
 
 const TodoContext = createContext({});
 
 const TodoProvider = ({ children }) => {
   const API = 'http://localhost:8080';
+
+  const { data: todoList, error } = useFetch(`${API}/todo-list`);
+  const { data: todo } = useFetch(`${API}/todo`);
 
   const addTodoList = async (data) => {
     let optionsFetch = {
@@ -63,9 +67,13 @@ const TodoProvider = ({ children }) => {
     }
   };
 
-  const editTodo = async (data, id) => {
+  const editTodo = async (data, todo) => {
     const bodyParsed = {
+      id: todo.id,
       name: data.name,
+      done: todo.done,
+      todoListId: todo.todoListId,
+      todoListName: todo.todoListName,
     };
 
     let optionsFetch = {
@@ -78,7 +86,7 @@ const TodoProvider = ({ children }) => {
     };
 
     try {
-      await fetch(`${API}/todo/${id}`, optionsFetch);
+      await fetch(`${API}/todo/${todo.id}`, optionsFetch);
     } catch (error) {
       console.error('Fetch -PUT- error', error);
     }
@@ -106,6 +114,9 @@ const TodoProvider = ({ children }) => {
         editTodo,
         deleteTodo,
         API,
+        todoList,
+        todo,
+        error,
       }}
     >
       {children}

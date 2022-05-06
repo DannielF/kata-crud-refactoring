@@ -11,8 +11,6 @@ const CreateTodo = (list) => {
   } = useForm();
 
   const onSubmit = (data, event) => {
-    console.log(data);
-    console.log(list);
     addTodo(data, list);
     event.target.reset();
   };
