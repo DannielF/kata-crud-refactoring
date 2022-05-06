@@ -11,7 +11,7 @@ public interface ITodo {
 
     public TodosDto save(TodosDto todo);
 
-    public Todo update(Long id, Todo todo);
+    public TodosDto update(Long id, TodosDto todo);
 
     public Todo deleteById(Long id);
 

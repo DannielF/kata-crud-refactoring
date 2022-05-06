@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -48,22 +47,12 @@ public class TodoService implements ITodo {
     }
 
     @Transactional
-    public Todo update(Long id, Todo todo) {
-        Optional<Todo> toFind = repository.findById(id);
-        if (toFind.isPresent()) {
-            Todo toUpdate = toFind.get();
-            Long toGetList = toUpdate.getTodoList().getId();
-            Long toUpdateList = todo.getTodoList().getId();
+    public TodosDto update(Long id, TodosDto todo) {
 
-            if (!Objects.equals(toGetList, toUpdateList)) {
-                log.error("Not possible, forbidden");
-            }
-        }
-        log.debug("Todo updated with id: " + id);
-        if (todo.getId() != null) {
-            return repository.save(todo);
-        }
-        return todo;
+        todo.setId(id);
+        Todo todoModel = mapToTodo(todo);
+        Todo saveTodo = repository.save(todoModel);
+        return mapper.map(saveTodo, TodosDto.class);
     }
 
     @Transactional
