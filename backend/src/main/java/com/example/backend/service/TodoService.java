@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.dto.TodosDto;
+import com.example.backend.entity.Todo;
 import com.example.backend.repository.TodoRepository;
 import com.example.backend.service.interfaces.ITodo;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -29,31 +31,43 @@ public class TodoService implements ITodo {
         log.debug("Get all todos");
         return repository.findAll().stream()
                 .map(this::mapToTodoDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 
     @Transactional
     public TodosDto save(TodosDto todo) {
         log.debug("Todo created: " + todo);
-        com.example.backend.entity.Todo todoModel = mapToTodo(todo);
+        Todo todoModel = mapToTodo(todo);
         if (todoModel.getTodoList() == null) {
-            log.error("There must be a list");
+            log.error("There's must be a list");
             throw new RuntimeException("There must be a list");
         }
-        com.example.backend.entity.Todo saveTodo = repository.save(todoModel);
+        Todo saveTodo = repository.save(todoModel);
         return mapper.map(saveTodo, TodosDto.class);
     }
 
     @Transactional
-    public com.example.backend.entity.Todo update(Long id, com.example.backend.entity.Todo todo) {
+    public Todo update(Long id, Todo todo) {
+        Optional<Todo> toFind = repository.findById(id);
+        if (toFind.isPresent()) {
+            Todo toUpdate = toFind.get();
+            Long toGetList = toUpdate.getTodoList().getId();
+            Long toUpdateList = todo.getTodoList().getId();
+
+            if (!Objects.equals(toGetList, toUpdateList)) {
+                log.error("Not possible, forbidden");
+            }
+        }
         log.debug("Todo updated with id: " + id);
-        todo.setId(id);
-        return repository.save(todo);
+        if (todo.getId() != null) {
+            return repository.save(todo);
+        }
+        return todo;
     }
 
     @Transactional
-    public com.example.backend.entity.Todo deleteById(Long id) {
+    public Todo deleteById(Long id) {
         var todo = repository.findById(id);
         if (todo.isPresent()) {
             log.debug("Todo deleted with id: " + id);
@@ -65,8 +79,8 @@ public class TodoService implements ITodo {
     }
 
     @Transactional(readOnly = true)
-    public com.example.backend.entity.Todo getById(Long id) {
-        var todo = repository.findById(id);
+    public Todo getById(Long id) {
+        Optional<Todo> todo = repository.findById(id);
         if (todo.isPresent()) {
             log.debug("Todo : " + todo.get());
             return todo.get();
@@ -75,17 +89,17 @@ public class TodoService implements ITodo {
         return null;
     }
 
-    private TodosDto mapToTodoDto(com.example.backend.entity.Todo todo) {
+    private TodosDto mapToTodoDto(Todo todo) {
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         TodosDto todosDto;
         todosDto = mapper.map(todo, TodosDto.class);
         return todosDto;
     }
 
-    private com.example.backend.entity.Todo mapToTodo(TodosDto todo) {
+    private Todo mapToTodo(TodosDto todo) {
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-        com.example.backend.entity.Todo todoModel;
-        todoModel = mapper.map(todo, com.example.backend.entity.Todo.class);
+        Todo todoModel;
+        todoModel = mapper.map(todo, Todo.class);
         return todoModel;
     }
 }

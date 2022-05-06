@@ -32,7 +32,7 @@ public class TodoListController {
         this.service = service;
     }
 
-    @CrossOrigin
+
     @GetMapping()
     public ResponseEntity<Response> list() {
         response.restart();
@@ -45,9 +45,9 @@ public class TodoListController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    @CrossOrigin
-    @GetMapping("/{id}")
-    public ResponseEntity<Response> get(@PathVariable("id") Long id) {
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Response> get(@PathVariable(value = "id") Long id) {
         response.restart();
         try {
             response.data = service.getById(id);
@@ -83,8 +83,8 @@ public class TodoListController {
     }
 
     @CrossOrigin
-    @PutMapping("/{id}")
-    public ResponseEntity<Response> update(@PathVariable("id") Long id, @RequestBody TodoList todoList) {
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Response> update(@PathVariable(value = "id") Long id, @RequestBody TodoList todoList) {
         response.restart();
         try {
             log.info("TodoList updated : {}", todoList);
@@ -99,8 +99,8 @@ public class TodoListController {
     }
 
     @CrossOrigin
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Response> delete(@PathVariable("id") Long id) {
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Response> delete(@PathVariable(value = "id") Long id) {
         response.restart();
         try {
             response.data = service.deleteById(id);

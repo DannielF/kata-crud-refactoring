@@ -56,7 +56,7 @@ public class TodoListService implements ITodoList {
             log.debug("TodoList got with id: " + id);
             return todoList.get();
         } else {
-            throw new RuntimeException("No existe todoList");
+            throw new RuntimeException("There's no such TodoList");
         }
     }
 
