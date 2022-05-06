@@ -2,6 +2,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { TodoContext } from '../context/index';
 
+/**
+ * Create a new todo
+ * @param {*} list Object
+ * @returns {JSX.Element}
+ */
 const CreateTodo = (list) => {
   const { addTodo } = React.useContext(TodoContext);
   const {

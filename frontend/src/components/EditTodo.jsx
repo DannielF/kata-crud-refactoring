@@ -2,6 +2,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { TodoContext } from '../context/index';
 
+/**
+ * Edit the info of a todo
+ * @param {*} props state, Object
+ * @returns {JSX.Element}
+ */
 const EditTodo = ({ setEdit, todo }) => {
   const { editTodo } = React.useContext(TodoContext);
 
@@ -9,7 +14,12 @@ const EditTodo = ({ setEdit, todo }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    setValue,
+  } = useForm({
+    defaultValues: { todo },
+  });
+
+  setValue('name', todo.name);
 
   const onSubmit = (data, event) => {
     editTodo(data, todo);

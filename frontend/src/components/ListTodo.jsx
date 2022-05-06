@@ -3,6 +3,11 @@ import { CreateTodo } from './CreateTodo';
 import { Todo } from './Todo';
 import { TodoContext } from '../context/index';
 
+/**
+ * List todoList and todo items
+ * @param {*} props Object
+ * @returns {JSX.Element}
+ */
 const ListTodo = ({ list, todos }) => {
   const { deleteTodoList } = React.useContext(TodoContext);
 

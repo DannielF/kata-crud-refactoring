@@ -2,6 +2,12 @@ import React from 'react';
 import { ListTodo } from '../components/ListTodo.jsx';
 import { TodoContext } from '../context/index';
 
+/**
+ * List a todoList and todo items
+ * @returns {JSX.Element}
+ * @version 0.0.1
+ * @since 0.0.1
+ */
 const TodoList = () => {
   const { todoList, todo, error } = React.useContext(TodoContext);
 

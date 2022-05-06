@@ -3,6 +3,11 @@ import { TodoContext } from '../context/index';
 import { EditTodo } from './EditTodo';
 import { FcApproval } from 'react-icons/fc';
 
+/**
+ * Table to show the list of todo
+ * @param {*} props todo
+ * @returns {JSX.Element}
+ */
 const Todo = (todo) => {
   const { deleteTodo } = React.useContext(TodoContext);
   const [editing, setEditing] = React.useState(false);

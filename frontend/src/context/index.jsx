@@ -3,6 +3,11 @@ import useFetch from '../utils/useFetch.jsx';
 
 const TodoContext = createContext({});
 
+/**
+ * Context to manage todo list
+ * @param {*} JSX.Element
+ * @returns Provider and Consumer
+ */
 const TodoProvider = ({ children }) => {
   const API = 'http://localhost:8080';
 

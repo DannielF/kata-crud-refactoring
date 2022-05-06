@@ -1,6 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
+/**
+ * Form to create a new todo list
+ * @param {*} props function
+ * @returns {JSX.Element}
+ */
 const TodoListForm = ({ addTodoList }) => {
   const {
     register,
