@@ -19,6 +19,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Set;
 
+/**
+ * TodoList entity
+ *
+ * @author Daniel Granados
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Builder
 @Getter
 @Setter
@@ -28,7 +35,6 @@ import java.util.Set;
 @Entity
 @Table(name = "todolist")
 public class TodoList {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -6,6 +6,14 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * Todos DTO
+ * DTO type Flat
+ *
+ * @author Daniel Granados
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

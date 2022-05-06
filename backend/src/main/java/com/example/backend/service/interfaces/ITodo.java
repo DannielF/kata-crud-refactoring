@@ -5,6 +5,12 @@ import com.example.backend.entity.Todo;
 
 import java.util.List;
 
+/**
+ * Interface todos entity
+ * @author Daniel Granados
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 public interface ITodo {
 
     public List<TodosDto> list();

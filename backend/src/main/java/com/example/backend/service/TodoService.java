@@ -13,6 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Todos service
+ * @author Daniel Granados
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Slf4j
 @Service
 public class TodoService implements ITodo {
@@ -20,11 +26,16 @@ public class TodoService implements ITodo {
     private final TodoRepository repository;
     private final ModelMapper mapper;
 
+    //field injection
     public TodoService(TodoRepository repository, ModelMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
 
+    /**
+     * List all todos
+     * @return List<TodosDto>
+     */
     @Transactional(readOnly = true)
     public List<TodosDto> list() {
         log.debug("Get all todos");
@@ -33,7 +44,11 @@ public class TodoService implements ITodo {
                 .toList();
     }
 
-
+    /**
+     * Map a todosDto to a todo then save it
+     * @param todo Object
+     * @return TodosDto
+     */
     @Transactional
     public TodosDto save(TodosDto todo) {
         log.debug("Todo created: " + todo);
@@ -46,6 +61,12 @@ public class TodoService implements ITodo {
         return mapper.map(saveTodo, TodosDto.class);
     }
 
+    /**
+     * Map a todosDto to a todo then updated
+     * @param id Long
+     * @param todo Object
+     * @return TodosDto
+     */
     @Transactional
     public TodosDto update(Long id, TodosDto todo) {
 
@@ -55,6 +76,11 @@ public class TodoService implements ITodo {
         return mapper.map(saveTodo, TodosDto.class);
     }
 
+    /**
+     * Delete a todo by id
+     * @param id Long
+     * @return Todo
+     */
     @Transactional
     public Todo deleteById(Long id) {
         var todo = repository.findById(id);
@@ -67,6 +93,11 @@ public class TodoService implements ITodo {
         return null;
     }
 
+    /**
+     * Get a todo by id
+     * @param id Long
+     * @return Todo
+     */
     @Transactional(readOnly = true)
     public Todo getById(Long id) {
         Optional<Todo> todo = repository.findById(id);
@@ -78,6 +109,11 @@ public class TodoService implements ITodo {
         return null;
     }
 
+    /**
+     * Map a todo to a TodosDto
+     * @param todo Object
+     * @return TodosDto
+     */
     private TodosDto mapToTodoDto(Todo todo) {
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         TodosDto todosDto;
@@ -85,6 +121,11 @@ public class TodoService implements ITodo {
         return todosDto;
     }
 
+    /**
+     * Map a todosDto to a todo
+     * @param todo Object
+     * @return Todo
+     */
     private Todo mapToTodo(TodosDto todo) {
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         Todo todoModel;

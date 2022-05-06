@@ -18,7 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
+/**
+ * Todo entity
+ *
+ * @author Daniel Granados
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Builder
 @Getter
 @Setter
@@ -41,6 +47,7 @@ public class Todo {
     @Column(name = "td_done", nullable = false)
     private Boolean done;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY,
             targetEntity = TodoList.class,
             optional = false)
