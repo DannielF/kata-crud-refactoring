@@ -31,7 +31,7 @@ public class Todo {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "td_id")
     private Long id;
 

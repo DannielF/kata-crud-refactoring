@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.TodosDto;
+import com.example.backend.entity.Todo;
 import com.example.backend.service.TodoService;
 import com.example.backend.utils.GetErrorMessages;
 import com.example.backend.utils.Response;
@@ -32,7 +33,7 @@ public class TodoController {
         this.service = service;
     }
 
-    @CrossOrigin
+
     @GetMapping()
     public ResponseEntity<Response> list() {
         response.restart();
@@ -45,9 +46,9 @@ public class TodoController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    @CrossOrigin
-    @GetMapping("/{id}")
-    public ResponseEntity<Response> get(@PathVariable("id") Long id) {
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Response> get(@PathVariable(value = "id") Long id) {
         response.restart();
         try {
             response.data = service.getById(id);
@@ -83,8 +84,8 @@ public class TodoController {
     }
 
     @CrossOrigin
-    @PutMapping("/{id}")
-    public ResponseEntity<Response> update(@PathVariable("id") Long id, @RequestBody com.example.backend.entity.Todo todo) {
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Response> update(@PathVariable(value = "id") Long id, @RequestBody Todo todo) {
         response.restart();
         try {
             log.info("Todo updated : {}", todo);
@@ -99,8 +100,8 @@ public class TodoController {
     }
 
     @CrossOrigin
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Response> delete(@PathVariable("id") Long id) {
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Response> delete(@PathVariable(value = "id") Long id) {
         response.restart();
         try {
             response.data = service.deleteById(id);

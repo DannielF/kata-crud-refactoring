@@ -31,7 +31,7 @@ public class TodoList {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tl_id")
     private Long id;
 
