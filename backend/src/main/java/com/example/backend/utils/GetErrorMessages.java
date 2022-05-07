@@ -7,6 +7,11 @@ import java.sql.SQLException;
 
 public class GetErrorMessages {
 
+    private final Response response = new Response();
+    private HttpStatus httpStatus = HttpStatus.OK;
+
+
+
     /**
      * Administrador para las excepciones del sistema
      *
@@ -14,7 +19,7 @@ public class GetErrorMessages {
      * @author Julian Lasso <julian.lasso@sofka.com.co>
      * @since 1.0.0
      */
-    public static void getErrorMessageInternal(Exception exception, Response response, HttpStatus httpStatus) {
+    public void getErrorMessageInternal(Exception exception) {
         response.error = true;
         response.message = exception.getMessage();
         response.data = exception.getCause();
@@ -28,7 +33,7 @@ public class GetErrorMessages {
      * @author Julian Lasso <julian.lasso@sofka.com.co>
      * @since 1.0.0
      */
-    public static void getErrorMessageForResponse(DataAccessException exception, Response response, HttpStatus httpStatus) {
+    public void getErrorMessageForResponse(DataAccessException exception) {
         response.error = true;
         if (exception.getRootCause() instanceof SQLException sqlEx) {
             var sqlErrorCode = sqlEx.getErrorCode();

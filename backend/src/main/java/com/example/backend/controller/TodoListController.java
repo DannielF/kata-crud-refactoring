@@ -33,10 +33,12 @@ public class TodoListController {
 
     private final TodoListService service;
     private final Response response = new Response();
+    private final GetErrorMessages getErrorMessages;
     private HttpStatus httpStatus = HttpStatus.OK;
 
-    public TodoListController(TodoListService service) {
+    public TodoListController(TodoListService service, GetErrorMessages getErrorMessages) {
         this.service = service;
+        this.getErrorMessages = getErrorMessages;
     }
 
     /**
@@ -50,7 +52,7 @@ public class TodoListController {
             response.data = service.list();
             httpStatus = HttpStatus.OK;
         } catch (Exception e) {
-            GetErrorMessages.getErrorMessageInternal(e, response, httpStatus);
+            getErrorMessages.getErrorMessageInternal(e);
         }
         return new ResponseEntity<>(response, httpStatus);
     }
@@ -72,10 +74,10 @@ public class TodoListController {
                 response.message = "TodoList found";
                 httpStatus = HttpStatus.OK;
             }
-        } catch (DataAccessException exception) {
-            GetErrorMessages.getErrorMessageForResponse(exception, response, httpStatus);
-        } catch (Exception exception) {
-            GetErrorMessages.getErrorMessageInternal(exception, response, httpStatus);
+        } catch (DataAccessException de) {
+            getErrorMessages.getErrorMessageForResponse(de);
+        } catch (Exception e) {
+            getErrorMessages.getErrorMessageInternal(e);
         }
         return new ResponseEntity<>(response, httpStatus);
     }
@@ -93,10 +95,10 @@ public class TodoListController {
             log.info("TodoList Created : {}", todoList);
             response.data = service.save(todoList);
             httpStatus = HttpStatus.CREATED;
-        } catch (DataAccessException dae) {
-            GetErrorMessages.getErrorMessageForResponse(dae, response, httpStatus);
+        } catch (DataAccessException de) {
+            getErrorMessages.getErrorMessageForResponse(de);
         } catch (Exception e) {
-            GetErrorMessages.getErrorMessageInternal(e, response, httpStatus);
+            getErrorMessages.getErrorMessageInternal(e);
         }
         return new ResponseEntity<>(response, httpStatus);
     }
@@ -115,10 +117,10 @@ public class TodoListController {
             log.info("TodoList updated : {}", todoList);
             response.data = service.update(id, todoList);
             httpStatus = HttpStatus.OK;
-        } catch (DataAccessException dae) {
-            GetErrorMessages.getErrorMessageForResponse(dae, response, httpStatus);
+        } catch (DataAccessException de) {
+            getErrorMessages.getErrorMessageForResponse(de);
         } catch (Exception e) {
-            GetErrorMessages.getErrorMessageInternal(e, response, httpStatus);
+            getErrorMessages.getErrorMessageInternal(e);
         }
         return new ResponseEntity<>(response, httpStatus);
     }
@@ -141,10 +143,10 @@ public class TodoListController {
                 response.message = "TodoList deleted";
                 httpStatus = HttpStatus.OK;
             }
-        } catch (DataAccessException exception) {
-            GetErrorMessages.getErrorMessageForResponse(exception, response, httpStatus);
-        } catch (Exception exception) {
-            GetErrorMessages.getErrorMessageInternal(exception, response, httpStatus);
+        } catch (DataAccessException de) {
+            getErrorMessages.getErrorMessageForResponse(de);
+        } catch (Exception e) {
+            getErrorMessages.getErrorMessageInternal(e);
         }
         return new ResponseEntity<>(response, httpStatus);
     }

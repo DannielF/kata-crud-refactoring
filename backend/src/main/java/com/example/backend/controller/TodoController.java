@@ -33,10 +33,12 @@ public class TodoController {
 
     private final TodoService service;
     private final Response response = new Response();
+    private final GetErrorMessages getErrorMessages;
     private HttpStatus httpStatus = HttpStatus.OK;
 
-    public TodoController(TodoService service) {
+    public TodoController(TodoService service, GetErrorMessages getErrorMessages) {
         this.service = service;
+        this.getErrorMessages = getErrorMessages;
     }
 
     /**
@@ -50,7 +52,7 @@ public class TodoController {
             response.data = service.list();
             httpStatus = HttpStatus.OK;
         } catch (Exception e) {
-            GetErrorMessages.getErrorMessageInternal(e, response, httpStatus);
+            getErrorMessages.getErrorMessageInternal(e);
         }
         return new ResponseEntity<>(response, httpStatus);
     }
@@ -72,10 +74,10 @@ public class TodoController {
                 response.message = "Todo found";
                 httpStatus = HttpStatus.OK;
             }
-        } catch (DataAccessException exception) {
-            GetErrorMessages.getErrorMessageForResponse(exception, response, httpStatus);
-        } catch (Exception exception) {
-            GetErrorMessages.getErrorMessageInternal(exception, response, httpStatus);
+        } catch (DataAccessException de) {
+            getErrorMessages.getErrorMessageForResponse(de);
+        } catch (Exception e) {
+            getErrorMessages.getErrorMessageInternal(e);
         }
         return new ResponseEntity<>(response, httpStatus);
     }
@@ -93,10 +95,10 @@ public class TodoController {
             log.info("Todo Created : {}", todo);
             response.data = service.save(todo);
             httpStatus = HttpStatus.CREATED;
-        } catch (DataAccessException dae) {
-            GetErrorMessages.getErrorMessageForResponse(dae, response, httpStatus);
+        } catch (DataAccessException de) {
+            getErrorMessages.getErrorMessageForResponse(de);
         } catch (Exception e) {
-            GetErrorMessages.getErrorMessageInternal(e, response, httpStatus);
+            getErrorMessages.getErrorMessageInternal(e);
         }
         return new ResponseEntity<>(response, httpStatus);
     }
@@ -115,10 +117,10 @@ public class TodoController {
             log.info("Todo updated : {}", todo);
             response.data = service.update(id, todo);
             httpStatus = HttpStatus.OK;
-        } catch (DataAccessException dae) {
-            GetErrorMessages.getErrorMessageForResponse(dae, response, httpStatus);
+        } catch (DataAccessException de) {
+            getErrorMessages.getErrorMessageForResponse(de);
         } catch (Exception e) {
-            GetErrorMessages.getErrorMessageInternal(e, response, httpStatus);
+            getErrorMessages.getErrorMessageInternal(e);
         }
         return new ResponseEntity<>(response, httpStatus);
     }
@@ -141,10 +143,10 @@ public class TodoController {
                 response.message = "Todo deleted";
                 httpStatus = HttpStatus.OK;
             }
-        } catch (DataAccessException exception) {
-            GetErrorMessages.getErrorMessageForResponse(exception, response, httpStatus);
-        } catch (Exception exception) {
-            GetErrorMessages.getErrorMessageInternal(exception, response, httpStatus);
+        } catch (DataAccessException de) {
+            getErrorMessages.getErrorMessageForResponse(de);
+        } catch (Exception e) {
+            getErrorMessages.getErrorMessageInternal(e);
         }
         return new ResponseEntity<>(response, httpStatus);
     }

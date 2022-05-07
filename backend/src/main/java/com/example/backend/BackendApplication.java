@@ -1,5 +1,6 @@
 package com.example.backend;
 
+import com.example.backend.utils.GetErrorMessages;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,6 +20,12 @@ public class BackendApplication {
     public ModelMapper mapper() {
         return new ModelMapper();
     }
+
+    @Bean
+    public GetErrorMessages getErrorMessages() {
+        return new GetErrorMessages();
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(BackendApplication.class, args);
     }
