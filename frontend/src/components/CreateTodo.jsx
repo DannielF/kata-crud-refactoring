@@ -12,7 +12,7 @@ const CreateTodo = (list) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   const onSubmit = (data, event) => {
@@ -21,10 +21,7 @@ const CreateTodo = (list) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col mt-3 items-center w-full"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-3 items-center w-full">
       <h3 className="text-xl font-semibold">Create a new todo</h3>
       <input
         className="w-full mt-2 p-2 border-2 border-gray-600 rounded-lg"
@@ -32,7 +29,7 @@ const CreateTodo = (list) => {
         placeholder="What needs to be done?"
         name="name"
         {...register('name', {
-          required: 'Required',
+          required: 'Required'
         })}
       />
       <span className="text-red-600">{errors?.name?.message}</span>

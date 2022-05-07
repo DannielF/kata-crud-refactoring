@@ -10,7 +10,7 @@ const TodoListForm = ({ addTodoList }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   const onSubmit = (data, event) => {
@@ -30,14 +30,11 @@ const TodoListForm = ({ addTodoList }) => {
         placeholder="TodoList name"
         name="name"
         {...register('name', {
-          required: 'Required',
+          required: 'Required'
         })}
       />
       <span className="text-red-600">{errors?.name?.message}</span>
-      <button
-        type="submit"
-        className="w-3/12 py-2 mt-5 mb-3 bg-lime-600 rounded"
-      >
+      <button type="submit" className="w-3/12 py-2 mt-5 mb-3 bg-lime-600 rounded">
         Save
       </button>
     </form>

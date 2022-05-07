@@ -14,9 +14,9 @@ const EditTodo = ({ setEdit, todo }) => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
+    setValue
   } = useForm({
-    defaultValues: { todo },
+    defaultValues: { todo }
   });
 
   setValue('name', todo.name);
@@ -27,17 +27,14 @@ const EditTodo = ({ setEdit, todo }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center">
       <input
         className="border-2 border-gray-600 rounded"
         type="text"
         placeholder="New todo name"
         name="name"
         {...register('name', {
-          required: 'Required',
+          required: 'Required'
         })}
       />
       <span>{errors?.name?.message}</span>

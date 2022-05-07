@@ -13,7 +13,7 @@ function useFetch(url, options) {
 
   const initialState = {
     error: undefined,
-    data: undefined,
+    data: undefined
   };
 
   // Keep state logic separated
@@ -23,11 +23,11 @@ function useFetch(url, options) {
         return Object.assign({}, initialState);
       case 'fetched':
         return Object.assign(Object.assign({}, initialState), {
-          data: action.payload,
+          data: action.payload
         });
       case 'error':
         return Object.assign(Object.assign({}, initialState), {
-          error: action.payload,
+          error: action.payload
         });
       default:
         return state;

@@ -15,12 +15,13 @@ const TodoProvider = ({ children }) => {
     method: 'GET',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
-    credentials: 'same-origin',
+    credentials: 'same-origin'
   };
 
   const { data: todoList, error } = useFetch(`${API}/todo-list`, optionsFetch);
+
   const { data: todo } = useFetch(`${API}/todo`, optionsFetch);
 
   const addTodoList = async (data) => {
@@ -28,11 +29,11 @@ const TodoProvider = ({ children }) => {
       method: 'POST',
       mode: 'cors',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: data,
-      }),
+        name: data
+      })
     };
 
     try {
@@ -47,8 +48,8 @@ const TodoProvider = ({ children }) => {
       method: 'DELETE',
       mode: 'cors',
       headers: {
-        'Content-Type': 'application/json',
-      },
+        'Content-Type': 'application/json'
+      }
     };
 
     try {
@@ -62,16 +63,16 @@ const TodoProvider = ({ children }) => {
     const bodyParsed = {
       name: data.name,
       done: false,
-      todoListId: list.id,
+      todoListId: list.id
     };
 
     let optionsFetch = {
       method: 'POST',
       mode: 'cors',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(bodyParsed),
+      body: JSON.stringify(bodyParsed)
     };
 
     try {
@@ -87,16 +88,16 @@ const TodoProvider = ({ children }) => {
       name: data.name,
       done: todo.done,
       todoListId: todo.todoListId,
-      todoListName: todo.todoListName,
+      todoListName: todo.todoListName
     };
 
     let optionsFetch = {
       method: 'PUT',
       mode: 'cors',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(bodyParsed),
+      body: JSON.stringify(bodyParsed)
     };
 
     try {
@@ -109,7 +110,7 @@ const TodoProvider = ({ children }) => {
   const deleteTodo = async (id) => {
     let optionsFetch = {
       method: 'DELETE',
-      mode: 'cors',
+      mode: 'cors'
     };
 
     try {
@@ -130,7 +131,7 @@ const TodoProvider = ({ children }) => {
         API,
         todoList,
         todo,
-        error,
+        error
       }}
     >
       {children}

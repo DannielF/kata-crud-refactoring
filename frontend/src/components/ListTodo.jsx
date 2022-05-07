@@ -37,22 +37,13 @@ const ListTodo = ({ list, todos }) => {
         <table className="min-w-full mt-10">
           <thead className="border-b">
             <tr>
-              <td
-                scope="col"
-                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-              >
+              <td scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 Id
               </td>
-              <td
-                scope="col"
-                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-              >
+              <td scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 Task
               </td>
-              <td
-                scope="col"
-                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-              >
+              <td scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 Done
               </td>
             </tr>
