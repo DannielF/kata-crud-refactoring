@@ -1,5 +1,11 @@
 import { useEffect, useReducer, useRef } from 'react';
 
+/**
+ * Fetch hook
+ * @param {*} url String
+ * @param {*} options Object
+ * @returns state Object
+ */
 function useFetch(url, options) {
   const cache = useRef({});
   // Used to prevent state update if the component is unmounted

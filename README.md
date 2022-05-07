@@ -3,8 +3,10 @@
 ## Front-end
 	- React
 	- useContext
+	- useFetch
 	- useEffect
 	- React hook form
+	- Tailwind CSS
 	- Vite
 
 ## Back-end
@@ -12,5 +14,5 @@
 	- Spring boot
 	- Spring web
 	- JPA
-	- H2
+	- MySQL
 	- Lombok

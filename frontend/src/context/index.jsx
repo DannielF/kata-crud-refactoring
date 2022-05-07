@@ -3,11 +3,25 @@ import useFetch from '../utils/useFetch.jsx';
 
 const TodoContext = createContext({});
 
+/**
+ * Context to manage todo list
+ * @param {*} JSX.Element
+ * @returns Provider and Consumer
+ */
 const TodoProvider = ({ children }) => {
   const API = 'http://localhost:8080';
 
-  const { data: todoList, error } = useFetch(`${API}/todo-list`);
-  const { data: todo } = useFetch(`${API}/todo`);
+  let optionsFetch = {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'same-origin',
+  };
+
+  const { data: todoList, error } = useFetch(`${API}/todo-list`, optionsFetch);
+  const { data: todo } = useFetch(`${API}/todo`, optionsFetch);
 
   const addTodoList = async (data) => {
     let optionsFetch = {
