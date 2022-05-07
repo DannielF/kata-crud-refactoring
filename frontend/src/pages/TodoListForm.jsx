@@ -21,7 +21,7 @@ const TodoListForm = ({ addTodoList }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col mt-20 items-center w-1/2"
+      className="flex flex-col mt-20 items-center w-1/2 border-dotted border-gray-400 border-b-2"
     >
       <h3 className="text-xl font-semibold">Create a new list of todo</h3>
       <input
@@ -34,7 +34,10 @@ const TodoListForm = ({ addTodoList }) => {
         })}
       />
       <span className="text-red-600">{errors?.name?.message}</span>
-      <button type="submit" className="w-3/12 py-2 mt-5 bg-lime-600 rounded">
+      <button
+        type="submit"
+        className="w-3/12 py-2 mt-5 mb-3 bg-lime-600 rounded"
+      >
         Save
       </button>
     </form>

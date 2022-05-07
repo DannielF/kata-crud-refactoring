@@ -23,7 +23,7 @@ const CreateTodo = (list) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col mt-5 items-center w-full"
+      className="flex flex-col mt-3 items-center w-full"
     >
       <h3 className="text-xl font-semibold">Create a new todo</h3>
       <input

@@ -16,7 +16,7 @@ const ListTodo = ({ list, todos }) => {
   };
 
   return (
-    <section className="flex flex-col items-center my-10 w-full">
+    <section className="flex flex-col items-center mt-3 mb-10 w-full">
       <div className="pt-3">
         <div className="flex justify-center items-baseline">
           <h2 className="text-xl py-1 px-5 font-semibold text-center bg-orange-600 rounded mb-3">
